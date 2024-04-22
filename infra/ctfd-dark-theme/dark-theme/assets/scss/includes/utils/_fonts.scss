@@ -1,0 +1,44 @@
+/* Handle offline font loading */
+// $fa-font-path: "../../../node_modules/@fortawesome/fontawesome-free/webfonts" !default;
+// $fa-font-display: auto !default;
+// @import "../../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss";
+// @import "../../../node_modules/@fortawesome/fontawesome-free/scss/regular.scss";
+// @import "../../../node_modules/@fortawesome/fontawesome-free/scss/solid.scss";
+// @import "../../../node_modules/@fortawesome/fontawesome-free/scss/brands.scss";
+
+@use "~/@fontsource/lato/scss/mixins" as Lato;
+@use "~/@fontsource/raleway/scss/mixins" as Raleway;
+/* source-code-pro-latin-wght-normal */
+@font-face {
+  font-family: 'Source Code Pro Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 900;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/source-code-pro:vf@latest/latin-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+
+// Include both normal and bold weights
+@include Lato.fontFace($fontDir: "../webfonts", $weight: 400);
+@include Lato.fontFace($fontDir: "../webfonts", $weight: 700);
+
+@include Raleway.fontFace($fontDir: "../webfonts");
+
+$fa-font-path: "../webfonts";
+@import "~/@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~/@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~/@fortawesome/fontawesome-free/scss/brands.scss";
+
+// @import "~/@fontsource/lato/index.css";
+// @import "~/@fontsource/lato/index.css";
+
+html,
+body,
+.container {
+  font-family: "Source Code Pro Variable", sans-serif;
+}
+
+.jumbotron .container {
+  font-family: "Source Code Pro Variable", sans-serif;
+}

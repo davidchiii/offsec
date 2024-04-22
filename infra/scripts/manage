@@ -1,0 +1,93 @@
+#!/usr/bin/env python3
+
+from subprocess import check_output
+from argparse import ArgumentParser
+from os import listdir as ls
+from colorama import Fore, Style
+from os import listdir
+
+def color_str(s, c):
+    return Fore.__dict__[c.upper()] + str(s) + Style.RESET_ALL
+
+def parse_args():
+    parser=ArgumentParser()
+    parser.add_argument('-r', default=None, dest='reset', action='store_true', help='reset all challenges')
+    parser.add_argument('-u', default=None, dest='upload', action='store_true', help='upload a set of challenges')
+    return parser.parse_args()
+
+def execve(cmd):
+    check_output(cmd, shell=True)
+
+def upload():
+    weeks=list(sorted(filter(
+        lambda x: 'week' in x,
+        ls('./chals/')
+    ), key=lambda x: int(x.split('_')[1])))
+    for index, value in enumerate(weeks):
+        print('{:<12} {:<21}'.format(
+            color_str(index+1,'blue'),
+            color_str(value, 'green'),
+        ))
+    print()
+    choice=int(input('choose week: '))
+    print('uploading {}... '.format(weeks[choice-1]))
+    execve(
+        'python3 upload_week.py chals/{}'.format(
+            weeks[choice-1]
+        )
+    )
+
+def upload_single():
+    chals=[]
+    for week in listdir('chals'):
+        if not week.startwith('week_'):
+            continue
+        for challenge in listdir('chals/' + week):
+            chals.append('chals/{}/{}'.format(week, challenge))
+    for index, challenge in enumerate(chals):
+        print('{:<12} {}'.format(
+            color_str(index, 'blue'),
+            color_str(challenge, 'green'),
+        ))
+    print()
+    choice=int(input('select: '))
+    print('uploading {}...'.format(chals[choice]))
+    execve(
+        'python3 upload_chal.py {}'.format(chals[choice])
+    )
+
+def reset():
+    confirm=input('confirm reset [y/N]: ').lower().startswith('y')
+    if confirm:
+        print('resetting challenges... ')
+        execve(
+            'python3 reset.py'
+        )
+
+def menu():
+    line='{num:<12} : {option}'
+    options={
+        'upload single challenge': upload_single,
+        'upload week': upload,
+        'reset all': reset,
+    }
+    for num, option in enumerate(options.keys()):
+        print(line.format(
+            option=color_str(option, 'blue'),
+            num=color_str(num, 'green'),
+        ))
+    print()
+    selection=int(input('enter selection: '))
+    return options[list(option.keys())[selection]]
+
+def main():
+    args=parse_args()
+    if args.reset:
+        reset()
+    elif args.upload:
+        upload()
+    else:
+        menu()
+
+if __name__ == "__main__":
+    main()

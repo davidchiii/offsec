@@ -1,0 +1,11 @@
+[Unit]
+Description=OSIRIS Challenge Broker
+After=network.target
+
+[Service]
+User=manager
+Restart=on-failure
+ExecStart=/usr/bin/python3 /opt/offsec-materials/infra/chalbroker/chalbroker/chalbroker.py /opt/offsec-materials/chals https://{INSERT_URL_HERE}
+
+[Install]
+WantedBy=multi-user.target

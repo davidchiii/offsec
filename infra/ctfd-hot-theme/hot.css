@@ -1,0 +1,11 @@
+.tag-hot > button:not(.solved-challenge) {
+    background-color: none;
+    background-image: url("/files/295cc8249104a5f5e020c7b3507ee73f/fire.gif");
+    background-size: cover;
+}
+
+.tag-hot > button.solved-challenge {
+    background-color: none;
+    background-image: url("/files/7f08f6dbe880876664899d46b84a9bf8/waterfall.gif");
+    background-size: cover;
+}

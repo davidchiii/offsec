@@ -1,0 +1,36 @@
+// header container
+.body-container{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:rgb(28, 28, 28);
+}
+
+h1{
+  color: #5ac628;
+}
+
+.header {
+  padding-top:20px;
+}
+.info-section {
+  margin:10px;
+}
+
+// disable purple link for visited links on front page
+a:visited {
+  text-decoration: none;
+}
+
+hr.gradient {
+  height: 3px;
+  border:none;
+  border-radius: 6px;
+  background-color: linear-gradient(
+    90deg,
+    rgba(13,8,96,1) 0%,
+    rgba(9,9,121,1) 21%,
+    rgba(6,84,170,1) 51%,
+    rgba(0,255,113,1) 100%,
+  );
+}
